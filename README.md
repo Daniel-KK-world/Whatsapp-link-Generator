@@ -2,7 +2,9 @@
 
 A simple web tool to generate direct WhatsApp messaging links from phone numbers for cold outreach campaigns.
 
-![Tool Screenshot](https://github.com/user-attachments/assets/2d503fad-ee8b-4e88-93f6-b84f464738b6)
+<img width="600" height="618" alt="image" src="https://github.com/user-attachments/assets/c666d315-50c4-4452-9871-8b1cc9ada5a6" />
+
+<img width="407" height="490" alt="image" src="https://github.com/user-attachments/assets/7849e54f-b6c7-4f2b-a068-a66cec396b5b" />
 
 ## Features
 
