@@ -1,54 +1,230 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>WhatsApp Link Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Link Generator | Cold Outreach Tool</title>
     <style>
+        :root {
+            --primary: #25D366;
+            --primary-dark: #128C7E;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f0f2f5;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
             max-width: 600px;
             margin: 0 auto;
-            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
-        .container {
-            background-color: #f5f5f5;
+        
+        .header {
+            background-color: var(--primary-dark);
+            color: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
         }
-        input, button {
-            padding: 10px;
-            margin: 5px 0;
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+        
+        .content {
+            padding: 25px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input {
             width: 100%;
-            box-sizing: border-box;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
         }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+        }
+        
+        .helper-text {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 6px;
+        }
+        
         button {
-            background-color: #25D366;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
             color: white;
             border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        #result {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            display: none;
+        }
+        
+        .result-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+        
+        .whatsapp-link {
+            display: inline-block;
+            word-break: break-all;
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border: 1px solid #eee;
+        }
+        
+        .copy-btn {
+            background-color: var(--gray);
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            width: auto;
+        }
+        
+        .copy-btn:hover {
+            background-color: #5a6268;
+        }
+        
+        .features {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .features h3 {
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            color: var(--primary);
+            margin-right: 10px;
             font-weight: bold;
         }
-        #result {
-            margin-top: 20px;
-            word-break: break-all;
-        }
-        a {
-            color: #25D366;
-            text-decoration: none;
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>WhatsApp Link Generator</h2>
-        <p>Enter a phone number to generate a WhatsApp messaging link:</p>
+        <div class="header">
+            <h1>WhatsApp Link Generator</h1>
+            <p>Create instant WhatsApp links for your cold outreach campaigns</p>
+        </div>
         
-        <input type="tel" id="phoneNumber" placeholder="e.g. 15551234567 (with country code)" pattern="[0-9]{8,15}">
-        <p><small>Include country code without + or 00 (e.g. 1 for US, 44 for UK)</small></p>
-        
-        <button onclick="generateLink()">Generate WhatsApp Link</button>
-        
-        <div id="result"></div>
+        <div class="content">
+            <div class="input-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" id="phoneNumber" placeholder="15551234567 (with country code)" pattern="[0-9]{8,15}">
+                <p class="helper-text">Include country code without + or 00 (e.g. 1 for US, 44 for UK)</p>
+            </div>
+            
+            <button onclick="generateLink()">Generate WhatsApp Link</button>
+            
+            <div id="result">
+                <div class="result-title">Your WhatsApp Link:</div>
+                <div class="whatsapp-link" id="generatedLink"></div>
+                <button class="copy-btn" onclick="copyToClipboard()">Copy Link</button>
+                <p style="margin-top: 15px;">Use this link in your emails, messages, or CRM system.</p>
+            </div>
+            
+            <div class="features">
+                <h3>Why Use This Tool?</h3>
+                <ul class="feature-list">
+                    <li>Professional outreach via WhatsApp</li>
+                    <li>Higher response rates than email</li>
+                    <li>No need to save contacts first</li>
+                    <li>Works internationally with country codes</li>
+                    <li>Completely free with no tracking</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -70,12 +246,31 @@
             
             const whatsappLink = `https://wa.me/${cleanNumber}`;
             const resultDiv = document.getElementById('result');
+            const linkElement = document.getElementById('generatedLink');
             
-            resultDiv.innerHTML = `
-                <p><strong>WhatsApp Link:</strong></p>
-                <p><a href="${whatsappLink}" target="_blank">${whatsappLink}</a></p>
-                <p>You can copy this link and use it in your outreach.</p>
-            `;
+            linkElement.textContent = whatsappLink;
+            linkElement.setAttribute('href', whatsappLink);
+            resultDiv.style.display = 'block';
+            
+            // Scroll to result
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function copyToClipboard() {
+            const linkElement = document.getElementById('generatedLink');
+            const range = document.createRange();
+            range.selectNode(linkElement);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            
+            // Show feedback
+            const copyBtn = document.querySelector('.copy-btn');
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyBtn.textContent = 'Copy Link';
+            }, 2000);
         }
     </script>
 </body>
