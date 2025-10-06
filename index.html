@@ -275,33 +275,27 @@
     </div>
 
     <script>
-        function generateLink() {
-            const phoneNumber = document.getElementById('phoneNumber').value.trim();
-            
-            if (!phoneNumber) {
-                alert('Target acquisition failed: No number entered');
-                return;
-            }
-            
-            // Remove any non-digit characters
-            const cleanNumber = phoneNumber.replace(/\D/g, '');
-            
-            if (cleanNumber.length < 8) {
-                alert('Invalid coordinates: Enter at least 8 digits');
-                return;
-            }
-            
-            const whatsappLink = `https://wa.me/${cleanNumber}`;
-            const resultDiv = document.getElementById('result');
-            const linkElement = document.getElementById('generatedLink');
-            
-            linkElement.textContent = whatsappLink;
-            linkElement.setAttribute('href', whatsappLink);
-            resultDiv.style.display = 'block';
-            
-            // Scroll to result
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
+function generateLink() {
+    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    
+    if (!phoneNumber) {
+        alert('Target acquisition failed: No number entered');
+        return;
+    }
+
+    const cleanNumber = phoneNumber.replace(/\D/g, '');
+
+    if (cleanNumber.length < 8) {
+        alert('Invalid coordinates: Enter at least 8 digits');
+        return;
+    }
+
+    // Pre-filled message (edit this however you want)
+    const message = "Hey there! I saw your number via Wazooka 💥";
+
+    // Instantly redirect to WhatsApp
+    window.location.href = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
+}
         
         function copyToClipboard() {
             const linkElement = document.getElementById('generatedLink');
